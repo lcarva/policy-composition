@@ -1,0 +1,24 @@
+---
+apiVersion: appstudio.redhat.com/v1alpha1
+kind: EnterpriseContractPolicy
+metadata:
+  name: redhat  # TODO: It's annoying that this is needed. Can it be overwritten?
+#   namespace: enterprise-contract-service
+spec:
+  description: Includes the full set of rules and policies required internally by Red Hat when building Red Hat products. Available collections are defined in https://redhat-appstudio.github.io/docs.stonesoup.io/ec-policies/release_policy.html#_available_rule_collections. If a different policy configuration is desired, this resource can serve as a starting point. See the docs on how to include and exclude rules https://redhat-appstudio.github.io/docs.stonesoup.io/ec-policies/policy_configuration.html#_including_and_excluding_rules.
+  publicKey: k8s://openshift-pipelines/public-key
+  sources:
+    - data:
+        - github.com/release-engineering/rhtap-ec-policy//data?ref=be7e1ef73bdeef2752dde400a52f9eab9b7542ca
+        - oci::quay.io/redhat-appstudio-tekton-catalog/data-acceptable-bundles:latest@sha256:dc89022688fef704e1d092d312ebceaf457e4b07594746c3dfb1231eb71e452a
+      name: Default
+      policy:
+        - oci::quay.io/enterprise-contract/ec-release-policy:git-89e9175@sha256:5b58d42b9392263eab7824ab5278e3a0e9ff57243c189ef63d24bf2867abf128
+      config:
+        exclude:
+          # Exclude step_image_registries for now since it can cause false
+          # positives due to https://issues.redhat.com/browse/OCPBUGS-8428
+          - step_image_registries
+        include:
+          - '@redhat'
+

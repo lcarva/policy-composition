@@ -1,0 +1,5 @@
+---
+- op: add
+  path: /spec/sources/0/config/exclude/-
+  value: tasks
+

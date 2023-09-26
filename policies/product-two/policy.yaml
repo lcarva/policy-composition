@@ -1,0 +1,23 @@
+description: This is the policy config for product-two.
+publicKey: k8s://openshift-pipelines/public-key
+sources:
+  - config:
+      exclude:
+        - step_image_registries
+        - tasks
+      include:
+        - '@redhat'
+    data:
+      - github.com/release-engineering/rhtap-ec-policy//data?ref=be7e1ef73bdeef2752dde400a52f9eab9b7542ca
+      - oci::quay.io/redhat-appstudio-tekton-catalog/data-acceptable-bundles:latest@sha256:dc89022688fef704e1d092d312ebceaf457e4b07594746c3dfb1231eb71e452a
+    name: Default
+    policy:
+      - oci::quay.io/enterprise-contract/ec-release-policy:git-89e9175@sha256:5b58d42b9392263eab7824ab5278e3a0e9ff57243c189ef63d24bf2867abf128
+  - config:
+      exclude:
+        - wip
+    data:
+      - github.com/product-two/policies//data
+    name: product-two
+    policy:
+      - github.com/product-two/policies//policies/release

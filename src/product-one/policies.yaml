@@ -1,0 +1,13 @@
+---
+- op: add
+  path: /spec/sources/-
+  value:
+    data:
+      - github.com/product-one/policies//data
+    name: product-one
+    policy:
+      - github.com/product-one/policies//policies/release
+    config:
+      include:
+        - '*'
+

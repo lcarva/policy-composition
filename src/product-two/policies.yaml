@@ -1,0 +1,13 @@
+---
+- op: add
+  path: /spec/sources/-
+  value:
+    data:
+      - github.com/product-two/policies//data
+    name: product-two
+    policy:
+      - github.com/product-two/policies//policies/release
+    config:
+      exclude:
+        - wip
+
